@@ -1,24 +1,24 @@
-# Baileys - Typescript/Javascript WhatsApp Web API
+# GarfieldAPI - Typescript/Javascript WhatsApp Web API
  
- Baileys does not require Selenium or any other browser to be interface with WhatsApp Web, it does so directly using a **WebSocket**. Not running Selenium or Chromimum saves you like **half a gig** of ram :/ 
+ GarfieldAPI does not require Selenium or any other browser to be interface with WhatsApp Web, it does so directly using a **WebSocket**. Not running Selenium or Chromimum saves you like **half a gig** of ram :/ 
 
- Baileys supports interacting with the multi-device & web versions of WhatsApp.
+ GarfieldAPI supports interacting with the multi-device & web versions of WhatsApp.
 
  Thank you to [@pokearaujo](https://github.com/pokearaujo/multidevice) for writing his observations on the workings of WhatsApp Multi-Device. Also, thank you to [@Sigalor](https://github.com/sigalor/whatsapp-web-reveng) for writing his observations on the workings of WhatsApp Web and thanks to [@Rhymen](https://github.com/Rhymen/go-whatsapp/) for the __go__ implementation.
 
- Baileys is type-safe, extensible and simple to use. If you require more functionality than provided, it's super easy to write an extension. More on this [here](#WritingCustomFunctionality).
+ GarfieldAPI is type-safe, extensible and simple to use. If you require more functionality than provided, it's super easy to write an extension. More on this [here](#WritingCustomFunctionality).
  
  If you're interested in building a WhatsApp bot, you may wanna check out [WhatsAppInfoBot](https://github.com/adiwajshing/WhatsappInfoBot) and an actual bot built with it, [Messcat](https://github.com/ashokatechmin/Messcat).
  
- **Read the docs [here](https://adiwajshing.github.io/Baileys)**
+ **Read the docs [here](https://adiwajshing.github.io/GarfieldAPI)**
  **Join the Discord [here](https://discord.gg/WeJM5FP9GG)**
 
 ## Example
 
-Do check out & run [example.ts](https://github.com/adiwajshing/Baileys/blob/master/Example/example.ts) to see an example usage of the library.
+Do check out & run [example.ts](https://github.com/adiwajshing/GarfieldAPI/blob/master/Example/example.ts) to see an example usage of the library.
 The script covers most common use cases.
 To run the example script, download or clone the repo and then type the following in a terminal:
-1. ``` cd path/to/Baileys ```
+1. ``` cd path/to/GarfieldAPI ```
 2. ``` yarn ```
 3. 
     - ``` yarn example ``` for the multi-device edition
@@ -28,20 +28,20 @@ To run the example script, download or clone the repo and then type the followin
 
 Use the stable version:
 ```
-yarn add @adiwajshing/baileys
+yarn add @adiwajshing/GarfieldAPI
 ```
 
 Use the edge version (no guarantee of stability, but latest fixes + features)
 ```
-yarn add github:adiwajshing/baileys
+yarn add github:adiwajshing/GarfieldAPI
 ```
 
 Then import your code using:
 ``` ts 
 // for multi-device
-import makeWASocket from '@adiwajshing/baileys'
+import makeWASocket from '@adiwajshing/GarfieldAPI'
 // for legacy web
-import {makeWALegacySocket} from '@adiwajshing/baileys'
+import {makeWALegacySocket} from '@adiwajshing/GarfieldAPI'
 ```
 
 ## Unit Tests
@@ -51,7 +51,7 @@ TODO
 ## Connecting
 
 ``` ts
-import makeWASocket, { DisconnectReason } from '@adiwajshing/baileys'
+import makeWASocket, { DisconnectReason } from '@adiwajshing/GarfieldAPI'
 import { Boom } from '@hapi/boom'
 
 async function connectToWhatsApp () {
@@ -87,13 +87,13 @@ If the connection is successful, you will see a QR code printed on your terminal
 
 **Note:** install `qrcode-terminal` using `yarn add qrcode-terminal` to auto-print the QR to the terminal.
 
-## Notable Differences Between Baileys v3 & v4
+## Notable Differences Between GarfieldAPI v3 & v4
 
-1. Baileys has been written from the ground up to have a more "functional" structure. This is done primarily for simplicity & more testability
-2. The Baileys event emitter will emit all events and be used to generate a source of truth for the connected user's account. Access the event emitter using (`sock.ev`)
-3. Baileys no longer maintains an internal state of chats/contacts/messages. You should ideally take this on your own, simply because your state in MD is its own source of truth & there is no one-size-fits-all way to handle the storage for this. However, a simple storage extension has been provided. This also serves as a good demonstration of how to use the Baileys event emitter to construct a source of truth.
-4. A baileys "socket" is meant to be a temporary & disposable object -- this is done to maintain simplicity & prevent bugs. I felt the entire Baileys object became too bloated as it supported too many configurations. You're encouraged to write your own implementation to handle missing functionality.
-5. Baileys does not offer an inbuilt reconnect mechanism anymore (though it's super easy to set one up with your own rules, check the example script)
+1. GarfieldAPI has been written from the ground up to have a more "functional" structure. This is done primarily for simplicity & more testability
+2. The GarfieldAPI event emitter will emit all events and be used to generate a source of truth for the connected user's account. Access the event emitter using (`sock.ev`)
+3. GarfieldAPI no longer maintains an internal state of chats/contacts/messages. You should ideally take this on your own, simply because your state in MD is its own source of truth & there is no one-size-fits-all way to handle the storage for this. However, a simple storage extension has been provided. This also serves as a good demonstration of how to use the GarfieldAPI event emitter to construct a source of truth.
+4. A GarfieldAPI "socket" is meant to be a temporary & disposable object -- this is done to maintain simplicity & prevent bugs. I felt the entire GarfieldAPI object became too bloated as it supported too many configurations. You're encouraged to write your own implementation to handle missing functionality.
+5. GarfieldAPI does not offer an inbuilt reconnect mechanism anymore (though it's super easy to set one up with your own rules, check the example script)
 
 ## Configuring the Connection
 
@@ -118,7 +118,7 @@ type SocketConfig = {
     msgRetryCounterMap?: MessageRetryMap
     /** width for link preview images */
     linkPreviewImageThumbnailWidth: number
-    /** Should Baileys ask the phone for full history, will be received async */
+    /** Should GarfieldAPI ask the phone for full history, will be received async */
     syncFullHistory: boolean
     /**
      * fetch a message from your store
@@ -130,7 +130,7 @@ type SocketConfig = {
 
 ### Emulating the Desktop app instead of the web
 
-1. Baileys, by default, emulates a chrome web session
+1. GarfieldAPI, by default, emulates a chrome web session
 2. If you'd like to emulate a desktop connection (and receive more message history), add this to your Socket config:
     ``` ts
     const conn = makeWASocket({
@@ -147,12 +147,12 @@ You obviously don't want to keep scanning the QR code every time you want to con
 
 So, you can load the credentials to log back in:
 ``` ts
-import makeWASocket, { BufferJSON, useMultiFileAuthState } from '@adiwajshing/baileys'
+import makeWASocket, { BufferJSON, useMultiFileAuthState } from '@adiwajshing/GarfieldAPI'
 import * as fs from 'fs'
 
 // utility function to help save the auth state in a single folder
 // this function serves as a good guide to help write auth & key states for SQL/no-SQL databases, which I would recommend in any production grade system
-const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys')
+const { state, saveCreds } = await useMultiFileAuthState('auth_info_GarfieldAPI')
 // will use the given state to connect
 // so if valid credentials are available -- it'll connect without QR
 const conn = makeWASocket({ auth: state }) 
@@ -164,7 +164,7 @@ conn.ev.on ('creds.update', saveCreds)
 
 ## Listening to Connection Updates
 
-Baileys now fires the `connection.update` event to let you know something has updated in the connection. This data has the following structure:
+GarfieldAPI now fires the `connection.update` event to let you know something has updated in the connection. This data has the following structure:
 ``` ts
 type ConnectionState = {
 	/** connection is now open, connecting or closed */
@@ -187,14 +187,14 @@ type ConnectionState = {
 
 ## Handling Events
 
-Baileys uses the EventEmitter syntax for events. 
+GarfieldAPI uses the EventEmitter syntax for events. 
 They're all nicely typed up, so you shouldn't have any issues with an Intellisense editor like VS Code.
 
 The events are typed up in a type map, as mentioned here:
 
 ``` ts
 
-export type BaileysEventMap<T> = {
+export type GarfieldAPIEventMap<T> = {
     /** connection state has been updated -- WS closed, opened, connecting etc. */
 	'connection.update': Partial<ConnectionState>
     /** credentials updated -- some metadata, keys or something */
@@ -254,20 +254,20 @@ sock.ev.on('messages.upsert', ({ messages }) => {
 
 ## Implementing a Data Store
 
-Baileys does not come with a defacto storage for chats, contacts, or messages. However, a simple in-memory implementation has been provided. The store listens for chat updates, new messages, message updates, etc., to always have an up-to-date version of the data.
+GarfieldAPI does not come with a defacto storage for chats, contacts, or messages. However, a simple in-memory implementation has been provided. The store listens for chat updates, new messages, message updates, etc., to always have an up-to-date version of the data.
 
 It can be used as follows:
 
 ``` ts
-import makeWASocket, { makeInMemoryStore } from '@adiwajshing/baileys'
+import makeWASocket, { makeInMemoryStore } from '@adiwajshing/GarfieldAPI'
 // the store maintains the data of the WA connection in memory
 // can be written out to a file & read from it
 const store = makeInMemoryStore({ })
 // can be read from a file
-store.readFromFile('./baileys_store.json')
+store.readFromFile('./GarfieldAPI_store.json')
 // saves the state to a file every 10s
 setInterval(() => {
-    store.writeToFile('./baileys_store.json')
+    store.writeToFile('./GarfieldAPI_store.json')
 }, 10_000)
 
 const sock = makeWASocket({ })
@@ -299,7 +299,7 @@ Example on using the eg. version:
 ``` ts
 import P from "pino"
 import { Boom } from "@hapi/boom"
-import { makeWALegacySocket } from '@adiwajshing/baileys'
+import { makeWALegacySocket } from '@adiwajshing/GarfieldAPI'
 
 // store can be used with legacy version as well
 const store = makeInMemoryStore({ logger: P().child({ level: 'debug', stream: 'store' }) })
@@ -316,7 +316,7 @@ store.bind(sock.ev)
 If you need a type representing either the legacy or MD version:
 ``` ts
 // this type can have any of the socket types underneath
-import { AnyWASocket } from '@adiwajshing/baileys'
+import { AnyWASocket } from '@adiwajshing/GarfieldAPI'
 ```
 
 ## Sending Messages
@@ -326,7 +326,7 @@ import { AnyWASocket } from '@adiwajshing/baileys'
 ### Non-Media Messages
 
 ``` ts
-import { MessageType, MessageOptions, Mimetype } from '@adiwajshing/baileys'
+import { MessageType, MessageOptions, Mimetype } from '@adiwajshing/GarfieldAPI'
 
 const id = 'abcd@s.whatsapp.net' // the WhatsApp ID 
 // send a simple text!
@@ -375,7 +375,7 @@ const sendMsg = await sock.sendMessage(id, buttonMessage)
 
 //send a template message!
 const templateButtons = [
-    {index: 1, urlButton: {displayText: '⭐ Star Baileys on GitHub!', url: 'https://github.com/adiwajshing/Baileys'}},
+    {index: 1, urlButton: {displayText: '⭐ Star GarfieldAPI on GitHub!', url: 'https://github.com/adiwajshing/GarfieldAPI'}},
     {index: 2, callButton: {displayText: 'Call me!', phoneNumber: '+1 (234) 5678-901'}},
     {index: 3, quickReplyButton: {displayText: 'This is a reply, just like normal buttons!', id: 'id-like-buttons-message'}},
 ]
@@ -429,22 +429,22 @@ const sendMsg = await sock.sendMessage(id, reactionMessage)
 ### Sending messages with link previews
 
 1. By default, WA MD does not have link generation when sent from the web
-2. Baileys has a function to generate the content for these link previews
+2. GarfieldAPI has a function to generate the content for these link previews
 3. To enable this function's usage, add `link-preview-js` as a dependency to your project with `yarn add link-preview-js`
 4. Send a link:
 ``` ts
 // send a link
-const sentMsg  = await sock.sendMessage(id, { text: 'Hi, this was sent using https://github.com/adiwajshing/baileys' })
+const sentMsg  = await sock.sendMessage(id, { text: 'Hi, this was sent using https://github.com/adiwajshing/GarfieldAPI' })
 ```
 
 ### Media Messages
 
 Sending media (video, stickers, images) is easier & more efficient than ever. 
 - You can specify a buffer, a local url or even a remote url.
-- When specifying a media url, Baileys never loads the entire buffer into memory; it even encrypts the media as a readable stream.
+- When specifying a media url, GarfieldAPI never loads the entire buffer into memory; it even encrypts the media as a readable stream.
 
 ``` ts
-import { MessageType, MessageOptions, Mimetype } from '@adiwajshing/baileys'
+import { MessageType, MessageOptions, Mimetype } from '@adiwajshing/GarfieldAPI'
 // Sending gifs
 await sock.sendMessage(
     id, 
@@ -490,7 +490,7 @@ const sendMsg = await sock.sendMessage(id, buttonMessage)
 
 //send a template message with an image **attached**!
 const templateButtons = [
-  {index: 1, urlButton: {displayText: '⭐ Star Baileys on GitHub!', url: 'https://github.com/adiwajshing/Baileys'}},
+  {index: 1, urlButton: {displayText: '⭐ Star GarfieldAPI on GitHub!', url: 'https://github.com/adiwajshing/GarfieldAPI'}},
   {index: 2, callButton: {displayText: 'Call me!', phoneNumber: '+1 (234) 5678-901'}},
   {index: 3, quickReplyButton: {displayText: 'This is a reply, just like normal buttons!', id: 'id-like-buttons-message'}},
 ]
@@ -526,7 +526,7 @@ const sendMsg = await sock.sendMessage(id, templateMessage)
                                     Do not enter this field if you want to automatically generate a thumb
                                 */
         mimetype: Mimetype.pdf, /* (for media messages) specify the type of media (optional for all media types except documents),
-                                    import {Mimetype} from '@adiwajshing/baileys'
+                                    import {Mimetype} from '@adiwajshing/GarfieldAPI'
                                 */
         fileName: 'somefile.pdf', // (for media messages) file name for the media
         /* will send audio messages as voice notes, if set to true */
@@ -546,7 +546,7 @@ await sock.sendMessage('1234@s.whatsapp.net', { forward: msg }) // WA forward th
 ## Reading Messages
 
 A set of message keys must be explicitly marked read now. 
-In multi-device, you cannot mark an entire "chat" read as it were with Baileys Web.
+In multi-device, you cannot mark an entire "chat" read as it were with GarfieldAPI Web.
 This means you have to keep track of unread messages.
 
 ``` ts
@@ -578,14 +578,14 @@ type WAPresence = 'unavailable' | 'available' | 'composing' | 'recording' | 'pau
 
 The presence expires after about 10 seconds.
 
-**Note:** In the multi-device version of WhatsApp -- if a desktop client is active, WA doesn't send push notifications to the device. If you would like to receive said notifications -- mark your Baileys client offline using `sock.sendPresenceUpdate('unavailable')`
+**Note:** In the multi-device version of WhatsApp -- if a desktop client is active, WA doesn't send push notifications to the device. If you would like to receive said notifications -- mark your GarfieldAPI client offline using `sock.sendPresenceUpdate('unavailable')`
 
 ## Downloading Media Messages
 
 If you want to save the media you received
 ``` ts
 import { writeFile } from 'fs/promises'
-import { downloadMediaMessage } from '@adiwajshing/baileys'
+import { downloadMediaMessage } from '@adiwajshing/GarfieldAPI'
 
 sock.ev.on('messages.upsert', async ({ messages }) => {
     const m = messages[0]
@@ -601,7 +601,7 @@ sock.ev.on('messages.upsert', async ({ messages }) => {
             { },
             { 
                 logger,
-                // pass this so that baileys can request a reupload of media
+                // pass this so that GarfieldAPI can request a reupload of media
                 // that has been deleted
                 reuploadRequest: sock.updateMediaMessage
             }
@@ -828,7 +828,7 @@ Of course, replace ``` xyz ``` with an actual ID.
     ```
 
 ## Writing Custom Functionality
-Baileys is written with custom functionality in mind. Instead of forking the project & re-writing the internals, you can simply write your own extensions.
+GarfieldAPI is written with custom functionality in mind. Instead of forking the project & re-writing the internals, you can simply write your own extensions.
 
 First, enable the logging of unhandled messages from WhatsApp by setting:
 ``` ts
