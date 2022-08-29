@@ -1,8 +1,8 @@
 {
-  "name": "@adiwajshing/baileys",
-  "version": "4.4.0",
+  "name": "garfield-bot-api",
+  "version": "1.0.0",
   "description": "WhatsApp API",
-  "homepage": "https://github.com/adiwajshing/Baileys",
+  "homepage": "https://github.com/Zenoixnoize/GARFIELD-BOT-API",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "keywords": [
@@ -29,10 +29,10 @@
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx"
   },
-  "author": "Adhiraj Singh",
+  "author": "Zenoixnoize",
   "license": "MIT",
   "repository": {
-    "url": "git@github.com:adiwajshing/baileys.git"
+    "url": "git@github.com:Zenoixnoize/GARFIELD-BOT-API.git"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.3",
